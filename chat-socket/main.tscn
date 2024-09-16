@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://daoakawiefs5i"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_5x7w1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnrpd"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+bg_color = Color(0.199219, 0.199219, 0.199219, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5x7w1")
+
+[node name="Action" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.15
+anchor_right = 1.0
+anchor_bottom = 0.15
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/separation = 24
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StartChat" type="Button" parent="Action"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Start Chat"
+
+[node name="JoinChat" type="Button" parent="Action"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Join chat"
+
+[node name="LeaveChat" type="Button" parent="Action"]
+visible = false
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Leave Chat"
+
+[node name="NameContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.05
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NameEdit" type="LineEdit" parent="NameContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "enter name"
+metadata/_edit_use_anchors_ = true
+
+[node name="UpdateName" type="Button" parent="NameContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Update"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.25
+anchor_right = 0.7
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+metadata/_edit_use_anchors_ = true
+
+[node name="ChatWindow" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_nnrpd")
+bbcode_enabled = true
+text = "[p]host: [color='41839f']hello[/color][/p]
+[center]some[center]
+[left][color='fabe7d']dd[/color][/left]
+
+"
+scroll_following = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Message" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Send" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 36)
+layout_mode = 2
+text = "Send"
+
+[node name="ChatUsers" type="Node" parent="."]
+
+[connection signal="pressed" from="Action/StartChat" to="." method="_on_start_chat_pressed"]
+[connection signal="pressed" from="Action/JoinChat" to="." method="_on_join_chat_pressed"]
+[connection signal="pressed" from="Action/LeaveChat" to="." method="_on_leave_chat_pressed"]
+[connection signal="pressed" from="NameContainer/UpdateName" to="." method="_on_update_name_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/Message" to="." method="_on_message_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Send" to="." method="_on_send_pressed"]
